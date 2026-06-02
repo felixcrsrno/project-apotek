@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+public function up(): void
+{
+    Schema::create('transaksis', function (Blueprint $table) {
+        $table->id('id_transaksi');
+        $table->dateTime('tanggal');
+        $table->integer('bayar');
+        $table->integer('kembalian');
+        $table->enum('metode', ['Tunai', 'QRIS', 'Transfer'])->default('Tunai');
+        $table->integer('ppn')->default(0);
+        $table->integer('diskon')->default(0);
+        $table->integer('total_akhir');
+        $table->timestamps();
+    });
+}
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('transaksis');
+    }
+};
