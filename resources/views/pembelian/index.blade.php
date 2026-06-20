@@ -20,10 +20,10 @@
                     <th width="5%" class="ps-4 py-3">No</th>
                     <th width="15%" class="py-3">No. Faktur</th>
                     <th width="15%" class="py-3">Tanggal</th>
-                    <th width="25%" class="py-3">Nama Supplier</th>
+                    <th width="20%" class="py-3">Nama Supplier</th>
                     <th width="15%" class="py-3 text-center">Metode</th>
                     <th width="15%" class="py-3 text-end">Total Bayar</th>
-                    <th width="10%" class="text-center py-3">Aksi</th>
+                    <th width="15%" class="text-center py-3">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +38,11 @@
                     <td>
                         <div class="fw-semibold">{{ \Carbon\Carbon::parse($d->tanggal)->format('d M Y') }}</div>
                     </td>
-                    <td class="fw-bold text-dark">{{ $d->nama_supplier }}</td>
+                    
+                    <td class="fw-bold text-dark">
+                        {{ $d->supplier->nama_supplier ?? 'Tidak Ada Supplier' }}
+                    </td>
+                    
                     <td class="text-center">
                         @php
                             $isCash = strtolower($d->metode_pembayaran) == 'cash';
@@ -53,9 +57,19 @@
                         Rp {{ number_format($d->total_bayar, 0, ',', '.') }}
                     </td>
                     <td class="text-center">
-                        <a href="{{ url('/pembelian/edit/'.$d->id_pembelian) }}" class="btn btn-sm btn-white border shadow-sm text-primary rounded-circle p-2 btn-animate" title="Edit Faktur" style="width: 35px; height: 35px;">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
+                        <div class="d-flex justify-content-center gap-2">
+                            <a href="{{ url('/pembelian/edit/'.$d->id_pembelian) }}" class="btn btn-sm btn-white border shadow-sm text-primary rounded-circle p-2 btn-animate" title="Edit Faktur" style="width: 35px; height: 35px; display: inline-flex; align-items: center; justify-content: center;">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+
+                            <form action="{{ url('/pembelian/hapus/'.$d->id_pembelian) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus faktur ini? Ketahuilah stok obat yang bertambah dari faktur ini mungkin akan ikut disesuaikan.')" class="m-0">
+                                @csrf
+                                @method('DELETE') {{-- Ganti ke @method('GET') atau hapus jika route kamu di web.php menggunakan Route::get --}}
+                                <button type="submit" class="btn btn-sm btn-white border shadow-sm text-danger rounded-circle p-2 btn-animate" title="Hapus Faktur" style="width: 35px; height: 35px; display: inline-flex; align-items: center; justify-content: center;">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 @empty
@@ -86,7 +100,7 @@
     }
     .btn-white:hover {
         background-color: #f1f5f9;
-        transform: rotate(15deg);
+        transform: scale(1.1); /* Mengubah rotasi jadi scale lembut agar seragam saat di-hover */
     }
 </style>
 @endsection

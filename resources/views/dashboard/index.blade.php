@@ -34,28 +34,102 @@
             transform: translateY(0);
         }
     }
+
+    /* Mobile Responsive Styles */
+    @media (max-width: 576px) {
+        header {
+            flex-direction: column;
+            gap: 1rem !important;
+        }
+        
+        header h2 {
+            font-size: 1.5rem !important;
+        }
+        
+        .filter-bar {
+            width: 100% !important;
+            flex-direction: column !important;
+            gap: 1rem !important;
+        }
+        
+        .filter-bar > div {
+            width: 100%;
+            flex-direction: column !important;
+            gap: 0.5rem !important;
+        }
+        
+        .filter-bar input {
+            font-size: 14px;
+        }
+        
+        .filter-bar button {
+            width: 100%;
+        }
+        
+        .card-custom {
+            padding: 1rem !important;
+        }
+        
+        .card-custom h5,
+        .card-custom h6 {
+            font-size: 0.95rem !important;
+        }
+        
+        .stat-bg {
+            width: 80px;
+            height: 80px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .chart-height-harian {
+            height: 250px !important;
+        }
+        
+        .chart-height-metode {
+            height: 180px !important;
+        }
+        
+        .chart-height-terlaris {
+            height: 250px !important;
+        }
+    }
+    
+    @media (min-width: 769px) {
+        .chart-height-harian {
+            height: 350px;
+        }
+        
+        .chart-height-metode {
+            height: 200px;
+        }
+        
+        .chart-height-terlaris {
+            height: 300px;
+        }
+    }
 </style>
 @endpush
 
 @section('content')
-<header class="d-flex justify-content-between align-items-center mb-5" data-aos="fade-down">
-    <div>
+<header class="d-flex justify-content-between align-items-start align-items-md-center mb-4 mb-md-5 flex-column flex-md-row" data-aos="fade-down">
+    <div class="mb-3 mb-md-0">
         <h2 class="fw-bold mb-1 animate__animated animate__fadeInLeft">Ringkasan Performa</h2>
         <p class="text-muted mb-0">Pantau aktivitas apotek Anda secara real-time.</p>
     </div>
-    <form action="{{ url('/dashboard') }}" method="GET" class="filter-bar d-flex align-items-center gap-3 shadow-sm bg-white rounded-4 p-2 border animate__animated animate__fadeInRight">
-        <div class="d-flex align-items-center gap-2 px-2">
+    <form action="{{ url('/dashboard') }}" method="GET" class="filter-bar d-flex align-items-center gap-2 gap-md-3 shadow-sm bg-white rounded-4 p-2 border animate__animated animate__fadeInRight flex-wrap w-100 w-md-auto">
+        <div class="d-flex align-items-center gap-2 px-2 flex-grow-1 flex-md-grow-0">
             <input type="date" name="tgl_mulai" class="form-control form-control-sm border-0 bg-transparent fw-bold" value="{{ $tgl_mulai }}">
-            <span class="text-muted">-</span>
+            <span class="text-muted d-none d-md-inline">-</span>
             <input type="date" name="tgl_selesai" class="form-control form-control-sm border-0 bg-transparent fw-bold" value="{{ $tgl_selesai }}">
         </div>
-        <button type="submit" class="btn btn-primary btn-sm px-4 rounded-pill btn-animate shadow-sm">Terapkan</button>
+        <button type="submit" class="btn btn-primary btn-sm px-3 px-md-4 rounded-pill btn-animate shadow-sm flex-grow-1 flex-md-grow-0">Terapkan</button>
     </form>
 </header>
 
 <!-- Statistics Cards with Animation -->
-<div class="row g-4 mb-5">
-    <div class="col-md-3" data-aos="zoom-in" data-aos-delay="100">
+<div class="row g-2 g-md-4 mb-4 mb-md-5">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12" data-aos="zoom-in" data-aos-delay="100">
         <div class="card card-custom p-4 border-0 shadow-sm bg-white position-relative overflow-hidden">
             <div class="stat-bg"></div>
             <div class="position-relative">
@@ -65,7 +139,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3" data-aos="zoom-in" data-aos-delay="150">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12" data-aos="zoom-in" data-aos-delay="150">
         <div class="card card-custom p-4 border-0 shadow-sm bg-white position-relative overflow-hidden">
             <div class="stat-bg"></div>
             <div class="position-relative">
@@ -75,7 +149,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3" data-aos="zoom-in" data-aos-delay="200">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12" data-aos="zoom-in" data-aos-delay="200">
         <div class="card card-custom p-4 border-0 shadow-sm bg-white position-relative overflow-hidden {{ $jml_kritis > 0 ? 'animate__animated animate__pulse animate__infinite' : '' }}">
             <div class="stat-bg"></div>
             <div class="position-relative">
@@ -85,7 +159,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3" data-aos="zoom-in" data-aos-delay="250">
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12" data-aos="zoom-in" data-aos-delay="250">
         <div class="card card-custom p-4 border-0 shadow-sm bg-white position-relative overflow-hidden">
             <div class="stat-bg"></div>
             <div class="position-relative">
@@ -98,28 +172,28 @@
 </div>
 
 <!-- Main Charts Row -->
-<div class="row g-4 mb-5">
-    <div class="col-lg-8" data-aos="fade-right">
-        <div class="card card-custom p-4 h-100 border-0 shadow-sm bg-white">
-            <h5 class="fw-bold mb-4"><i class="fa-solid fa-chart-line me-2 text-primary"></i>Tren Pendapatan Harian</h5>
-            <div style="height: 350px;" class="chart-container">
+<div class="row g-2 g-md-4 mb-4 mb-md-5">
+    <div class="col-lg-8 col-12" data-aos="fade-right">
+        <div class="card card-custom p-3 p-md-4 h-100 border-0 shadow-sm bg-white">
+            <h5 class="fw-bold mb-3 mb-md-4"><i class="fa-solid fa-chart-line me-2 text-primary"></i>Tren Pendapatan Harian</h5>
+            <div class="chart-height-harian chart-container">
                 <canvas id="chartHarian"></canvas>
             </div>
         </div>
     </div>
     
-    <div class="col-lg-4" data-aos="fade-left">
-        <div class="row g-4">
+    <div class="col-lg-4 col-12" data-aos="fade-left">
+        <div class="row g-2 g-md-4">
             <div class="col-12">
-                <div class="card card-custom p-4 border-0 shadow-sm bg-white">
+                <div class="card card-custom p-3 p-md-4 border-0 shadow-sm bg-white">
                     <h6 class="fw-bold mb-3"><i class="fa-solid fa-money-bill me-2 text-success"></i>Metode Pembayaran</h6>
-                    <div style="height: 200px;" class="chart-container">
+                    <div class="chart-height-metode chart-container">
                         <canvas id="chartMetode"></canvas>
                     </div>
                 </div>
             </div>
             <div class="col-12">
-                <div class="card card-custom p-4 border-0 shadow-sm bg-white">
+                <div class="card card-custom p-3 p-md-4 border-0 shadow-sm bg-white">
                     <h6 class="fw-bold mb-3 text-danger">
                         <i class="fa-solid fa-triangle-exclamation me-2 animate__animated animate__flash animate__infinite"></i>
                         Perlu Restock Segera
@@ -150,11 +224,11 @@
 </div>
 
 <!-- Obat Terlaris Chart -->
-<div class="row g-4" data-aos="fade-up">
+<div class="row g-2 g-md-4" data-aos="fade-up">
     <div class="col-lg-12">
-        <div class="card card-custom p-4 border-0 shadow-sm bg-white">
-            <h5 class="fw-bold mb-4"><i class="fa-solid fa-fire me-2 text-warning"></i>Top 5 Obat Terlaris</h5>
-            <div style="height: 300px;" class="chart-container">
+        <div class="card card-custom p-3 p-md-4 border-0 shadow-sm bg-white">
+            <h5 class="fw-bold mb-3 mb-md-4"><i class="fa-solid fa-fire me-2 text-warning"></i>Top 5 Obat Terlaris</h5>
+            <div class="chart-height-terlaris chart-container">
                 <canvas id="chartObatTerlaris"></canvas>
             </div>
         </div>
@@ -183,10 +257,10 @@
         new Chart(ctxHarian, {
             type: 'line',
             data: {
-                labels: @json($tgl_labels),
+                labels: {!! json_encode($tgl_labels, JSON_UNESCAPED_UNICODE) !!},
                 datasets: [{
                     label: 'Pendapatan Harian',
-                    data: @json($total_harian),
+                    data: {!! json_encode($total_harian, JSON_UNESCAPED_UNICODE) !!},
                     borderColor: 'rgb(16, 185, 129)',
                     backgroundColor: 'rgba(16, 185, 129, 0.1)',
                     fill: true,
@@ -254,9 +328,9 @@
         new Chart(ctxMetode, {
             type: 'doughnut',
             data: {
-                labels: @json($labels_metode),
+                labels: {!! json_encode($labels_metode, JSON_UNESCAPED_UNICODE) !!},
                 datasets: [{
-                    data: @json($data_metode),
+                    data: {!! json_encode($data_metode, JSON_UNESCAPED_UNICODE) !!},
                     backgroundColor: [
                         'rgba(16, 185, 129, 0.8)',
                         'rgba(59, 130, 246, 0.8)',
@@ -310,10 +384,10 @@
         new Chart(ctxObatTerlaris, {
             type: 'bar',
             data: {
-                labels: @json($labels_obat),
+                labels: {!! json_encode($labels_obat, JSON_UNESCAPED_UNICODE) !!},
                 datasets: [{
                     label: 'Jumlah Terjual',
-                    data: @json($data_obat),
+                    data: {!! json_encode($data_obat, JSON_UNESCAPED_UNICODE) !!},
                     backgroundColor: [
                         'rgba(239, 68, 68, 0.8)',
                         'rgba(249, 115, 22, 0.8)',

@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 6.0.0-dev+20260408.cb44fe5aec
+-- version 6.0.0-dev+20260519.eecbf60603
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 13, 2026 at 05:45 AM
+-- Generation Time: Jun 19, 2026 at 08:26 AM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.30
 
@@ -46,7 +46,9 @@ INSERT INTO `detail_pembelian` (`id_detail`, `id_pembelian`, `id_obat`, `qty`, `
 (12, 1, 3, 100, 11000, 1100000),
 (33, 3, 17, 100, 8000, 800000),
 (34, 3, 4, 15, 7500, 112500),
-(35, 3, 4, 50, 7900, 395000);
+(35, 3, 4, 50, 7900, 395000),
+(43, 8, 15, 100, 10000, 1000000),
+(44, 9, 17, 10, 7500, 75000);
 
 -- --------------------------------------------------------
 
@@ -67,54 +69,6 @@ CREATE TABLE `detail_transaksi` (
 --
 
 INSERT INTO `detail_transaksi` (`id_detail`, `id_transaksi`, `id_obat`, `jumlah`, `subtotal`) VALUES
-(17, 9, 0, 1, 10000),
-(18, 9, 1, 1, 5000),
-(19, 10, 0, 1, 7000),
-(20, 10, 1, 1, 15000),
-(21, 11, 0, 1, 10000),
-(22, 11, 1, 1, 15000),
-(23, 11, 2, 1, 5000),
-(24, 12, 0, 1, 15000),
-(25, 12, 1, 1, 7100),
-(26, 12, 2, 1, 18000),
-(27, 13, 0, 1, 7100),
-(28, 13, 1, 1, 7100),
-(29, 14, 0, 1, 8000),
-(30, 14, 1, 1, 8000),
-(31, 14, 2, 1, 6000),
-(32, 14, 3, 1, 18000),
-(33, 14, 4, 1, 18000),
-(34, 15, 0, 1, 8000),
-(35, 15, 1, 1, 8000),
-(36, 15, 2, 1, 6000),
-(37, 15, 3, 1, 6000),
-(38, 16, 0, 1, 7100),
-(39, 16, 1, 1, 7100),
-(40, 17, 0, 1, 7100),
-(41, 18, 0, 1, 7100),
-(42, 18, 1, 1, 7100),
-(43, 18, 2, 1, 18000),
-(44, 18, 3, 1, 18000),
-(45, 19, 0, 1, 7100),
-(46, 19, 1, 1, 7100),
-(47, 20, 0, 1, 7100),
-(48, 22, 2, 1, 7100),
-(49, 23, 0, 1, 7100),
-(50, 23, 1, 1, 7100),
-(51, 23, 2, 1, 7100),
-(52, 24, 0, 1, 7100),
-(53, 25, 0, 1, 9000),
-(54, 25, 1, 1, 11000),
-(55, 26, 0, 1, 18000),
-(56, 26, 1, 1, 8000),
-(57, 27, 0, 1, 10500),
-(58, 27, 1, 1, 7100),
-(59, 28, 0, 1, 7100),
-(60, 29, 0, 1, 10500),
-(61, 29, 1, 1, 10500),
-(62, 29, 2, 1, 9000),
-(63, 30, 0, 1, 7100),
-(64, 30, 1, 1, 7100),
 (65, 31, 17, 1, 10500),
 (66, 31, 17, 1, 10500),
 (67, 31, 17, 1, 10500),
@@ -129,7 +83,38 @@ INSERT INTO `detail_transaksi` (`id_detail`, `id_transaksi`, `id_obat`, `jumlah`
 (76, 36, 4, 1, 7100),
 (77, 37, 4, 2, 15000),
 (78, 38, 4, 4, 30000),
-(79, 39, 4, 6, 47400);
+(79, 39, 4, 6, 47400),
+(80, 40, 4, 2, 15800),
+(81, 41, 15, 1, 16000),
+(82, 41, 7, 1, 7500),
+(83, 42, 17, 2, 16000),
+(84, 42, 4, 1, 7900),
+(85, 43, 7, 2, 15000),
+(86, 44, 7, 2, 15000),
+(87, 45, 7, 2, 15000),
+(88, 46, 12, 3, 60000),
+(89, 47, 4, 2, 15800),
+(90, 48, 4, 2, 15800),
+(91, 49, 4, 1, 7900),
+(92, 50, 4, 1, 7900),
+(93, 51, 4, 1, 7900),
+(94, 52, 4, 1, 7900),
+(95, 53, 17, 1, 1000),
+(96, 54, 17, 1, 10),
+(97, 55, 4, 2, 15800),
+(98, 56, 7, 2, 15000),
+(99, 57, 17, 2, 16000),
+(100, 58, 4, 1, 7900),
+(101, 58, 6, 1, 18000),
+(102, 59, 4, 2, 15800),
+(103, 60, 4, 2, 15800),
+(104, 61, 4, 2, 15800),
+(105, 62, 7, 3, 22500),
+(106, 63, 4, 1, 7900),
+(107, 64, 4, 1, 7900),
+(108, 65, 4, 1, 7900),
+(109, 66, 4, 2, 15800),
+(110, 67, 4, 2, 15800);
 
 -- --------------------------------------------------------
 
@@ -152,20 +137,20 @@ CREATE TABLE `obat` (
 
 INSERT INTO `obat` (`id_obat`, `nama_obat`, `harga`, `stok`, `kategori`, `expired`) VALUES
 (3, 'Vitamin C 1000mg', 11000, 215, 'Vitamin', '2027-05-20'),
-(4, 'Antasida Doen', 7900, 53, 'Analgesik', '2026-12-15'),
+(4, 'Antasida Doen', 8300, 30, 'Analgesik', '2026-12-15'),
 (5, 'OBH Combi', 12000, 50, 'Batuk & Flu', '2026-08-10'),
-(6, 'Betadine 60ml', 18000, 36, 'Antiseptik', '2028-01-30'),
-(7, 'Bodrex', 7500, 311, 'Analgesik', '2026-11-05'),
+(6, 'Betadine 60ml', 18000, 35, 'Antiseptik', '2028-01-30'),
+(7, 'Bodrex', 7500, 299, 'Analgesik', '2026-11-05'),
 (8, 'Promag', 6000, 90, 'Obat Lambung', '2027-03-22'),
 (9, 'Diapet', 9000, 55, 'Obat Diare', '2026-09-18'),
 (10, 'Neozep Forte', 11000, 65, 'Batuk & Flu', '2026-07-12'),
 (11, 'Panadol Extra', 13000, 75, 'Analgesik', '2027-02-25'),
-(12, 'Sangobion', 20000, 30, 'Suplemen Darah', '2027-10-14'),
+(12, 'Sangobion', 20000, 27, 'Suplemen Darah', '2027-10-14'),
 (13, 'Redoxon', 25000, 25, 'Vitamin', '2027-06-01'),
 (14, 'Tolak Angin', 5000, 250, 'Herbal', '2028-04-20'),
-(15, 'Insto Eye Drops', 16000, 45, 'Obat Mata', '2026-05-15'),
+(15, 'Insto Eye Drops', 10000, 144, 'Obat Mata', '2026-05-15'),
 (16, 'Paracetamol 500mg', 5000, 100, 'Analgesik', '2027-12-01'),
-(17, 'Amoxicillin 500mg', 8000, 109, 'Antibiotik', '2026-10-01');
+(17, 'Amoxicillin 500mg', 7500, 24, 'Antibiotik', '2026-10-01');
 
 -- --------------------------------------------------------
 
@@ -176,7 +161,7 @@ INSERT INTO `obat` (`id_obat`, `nama_obat`, `harga`, `stok`, `kategori`, `expire
 CREATE TABLE `pembelian` (
   `id_pembelian` int NOT NULL,
   `no_faktur` varchar(50) DEFAULT NULL,
-  `nama_supplier` varchar(100) DEFAULT NULL,
+  `id_supplier` int DEFAULT NULL,
   `tanggal` date DEFAULT NULL,
   `total_bayar` int DEFAULT NULL,
   `metode_pembayaran` varchar(50) DEFAULT NULL
@@ -186,10 +171,12 @@ CREATE TABLE `pembelian` (
 -- Dumping data for table `pembelian`
 --
 
-INSERT INTO `pembelian` (`id_pembelian`, `no_faktur`, `nama_supplier`, `tanggal`, `total_bayar`, `metode_pembayaran`) VALUES
-(1, 'INV-2027', 'CV SINAR MUTIARA', '2026-04-21', 1100000, 'Kredit'),
-(2, 'INV-2000', 'CV CAHAYA PURNAMA', '2026-04-21', 2750000, 'Kredit'),
-(3, 'INV-2028', 'CV Sejahtera Abadi', '2026-04-28', 1307500, 'Cash');
+INSERT INTO `pembelian` (`id_pembelian`, `no_faktur`, `id_supplier`, `tanggal`, `total_bayar`, `metode_pembayaran`) VALUES
+(1, 'INV-2027', 1, '2026-04-21', 1100000, 'Kredit'),
+(2, 'INV-2000', 2, '2026-04-21', 2750000, 'Kredit'),
+(3, 'INV-2028', 3, '2026-04-28', 1307500, 'Cash'),
+(8, 'INV-9013', 6, '2026-06-10', 1000000, 'Cash'),
+(9, 'INV-1248', 7, '2026-06-10', 75000, 'Cash');
 
 -- --------------------------------------------------------
 
@@ -199,19 +186,21 @@ INSERT INTO `pembelian` (`id_pembelian`, `no_faktur`, `nama_supplier`, `tanggal`
 
 CREATE TABLE `supplier` (
   `id_supplier` int NOT NULL,
-  `nama_supplier` varchar(100) NOT NULL,
-  `alamat` text,
-  `telepon` varchar(20) DEFAULT NULL
+  `nama_supplier` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `supplier`
 --
 
-INSERT INTO `supplier` (`id_supplier`, `nama_supplier`, `alamat`, `telepon`) VALUES
-(1, 'CV Dwi Tunggal', 'Jl. Merdeka No 1', '081234567890'),
-(2, 'PT Kimia Farma (Distributor)', 'Jl. Sudirman No 10', '089876543210'),
-(3, 'PT Kalbe Farma', 'Kawasan Industri Cikarang', '0219876543');
+INSERT INTO `supplier` (`id_supplier`, `nama_supplier`) VALUES
+(1, 'CV Dwi Tunggal'),
+(2, 'PT Kimia Farma (Distributor)'),
+(3, 'PT Kalbe Farma'),
+(4, 'PT DAMAI'),
+(5, 'PT CAHAYA INDAH'),
+(6, 'PT YAYU'),
+(7, 'PT JASA');
 
 -- --------------------------------------------------------
 
@@ -252,7 +241,35 @@ INSERT INTO `transaksi` (`id_transaksi`, `tanggal`, `id_user`, `metode`, `ppn`, 
 (36, '2026-04-28 14:51:45', NULL, 'Tunai', 0, 0, 7100, 8000, 900),
 (37, '2026-04-28 15:05:49', NULL, 'Tunai', 0, 0, 15000, 15000, 0),
 (38, '2026-04-28 15:19:46', NULL, 'Tunai', 0, 0, 30000, 35000, 5000),
-(39, '2026-05-09 05:46:44', NULL, 'Tunai', 0, 0, 47400, 50000, 2600);
+(39, '2026-05-09 05:46:44', NULL, 'Tunai', 0, 0, 47400, 50000, 2600),
+(40, '2026-05-21 09:48:05', NULL, 'QRIS', 0, 0, 15800, 15800, 0),
+(41, '2026-05-21 09:50:10', NULL, 'QRIS', 0, 0, 23500, 23500, 0),
+(42, '2026-05-21 09:51:56', NULL, 'QRIS', 0, 0, 23900, 23900, 0),
+(43, '2026-05-21 09:52:22', NULL, 'QRIS', 0, 0, 15000, 15000, 0),
+(44, '2026-05-21 09:52:51', NULL, 'QRIS', 0, 0, 15000, 15000, 0),
+(45, '2026-05-21 10:18:40', NULL, 'QRIS', 0, 0, 15000, 15000, 0),
+(46, '2026-05-22 03:30:51', NULL, 'QRIS', 0, 0, 60000, 60000, 0),
+(47, '2026-05-22 03:34:08', NULL, 'QRIS', 0, 0, 15800, 15800, 0),
+(48, '2026-05-22 03:34:58', NULL, 'QRIS', 0, 0, 15800, 15800, 0),
+(49, '2026-05-22 03:35:38', NULL, 'QRIS', 0, 0, 7900, 7900, 0),
+(50, '2026-05-22 03:36:04', NULL, 'Transfer', 0, 0, 7900, 7900, 0),
+(51, '2026-05-22 03:37:04', NULL, 'QRIS', 0, 0, 7900, 7900, 0),
+(52, '2026-05-22 04:03:01', NULL, 'QRIS', 0, 0, 7900, 7900, 0),
+(53, '2026-05-22 04:04:12', NULL, 'QRIS', 0, 0, 1000, 1000, 0),
+(54, '2026-05-22 04:06:04', NULL, 'QRIS', 0, 0, 10, 10, 0),
+(55, '2026-05-22 04:41:01', NULL, 'Transfer', 0, 0, 15800, 15800, 0),
+(56, '2026-05-22 06:50:27', NULL, 'QRIS', 0, 0, 15000, 15000, 0),
+(57, '2026-05-22 08:44:34', NULL, 'Tunai', 0, 0, 16000, 16000, 0),
+(58, '2026-05-22 08:55:10', NULL, 'QRIS', 0, 0, 25900, 25900, 0),
+(59, '2026-06-02 10:18:53', NULL, 'Transfer', 0, 0, 15800, 15800, 0),
+(60, '2026-06-02 10:25:00', NULL, 'QRIS', 0, 0, 15800, 15800, 0),
+(61, '2026-06-02 10:26:07', NULL, 'Transfer', 0, 0, 15800, 15800, 0),
+(62, '2026-06-02 10:43:45', NULL, 'QRIS', 0, 0, 22500, 22500, 0),
+(63, '2026-06-02 10:58:07', NULL, 'Transfer', 0, 0, 7900, 7900, 0),
+(64, '2026-06-02 10:59:24', NULL, 'Transfer', 0, 0, 7900, 7900, 0),
+(65, '2026-06-02 11:01:06', NULL, 'Transfer', 0, 0, 7900, 7900, 0),
+(66, '2026-06-02 13:54:01', NULL, 'Tunai', 0, 0, 15800, 20000, 4200),
+(67, '2026-06-02 13:55:35', NULL, 'Tunai', 0, 0, 15800, 20000, 4200);
 
 -- --------------------------------------------------------
 
@@ -284,13 +301,17 @@ INSERT INTO `user` (`id`, `username`, `password`, `role`) VALUES
 -- Indexes for table `detail_pembelian`
 --
 ALTER TABLE `detail_pembelian`
-  ADD PRIMARY KEY (`id_detail`);
+  ADD PRIMARY KEY (`id_detail`),
+  ADD KEY `fk_detail_pembelian` (`id_pembelian`),
+  ADD KEY `fk_detail_pembelian_obat` (`id_obat`);
 
 --
 -- Indexes for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  ADD PRIMARY KEY (`id_detail`);
+  ADD PRIMARY KEY (`id_detail`),
+  ADD KEY `fk_detail_transaksi_transaksi` (`id_transaksi`),
+  ADD KEY `fk_detail_transaksi_obat` (`id_obat`);
 
 --
 -- Indexes for table `obat`
@@ -302,7 +323,8 @@ ALTER TABLE `obat`
 -- Indexes for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  ADD PRIMARY KEY (`id_pembelian`);
+  ADD PRIMARY KEY (`id_pembelian`),
+  ADD KEY `fk_pembelian_supplier` (`id_supplier`);
 
 --
 -- Indexes for table `supplier`
@@ -314,7 +336,8 @@ ALTER TABLE `supplier`
 -- Indexes for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  ADD PRIMARY KEY (`id_transaksi`);
+  ADD PRIMARY KEY (`id_transaksi`),
+  ADD KEY `fk_transaksi_user` (`id_user`);
 
 --
 -- Indexes for table `user`
@@ -330,43 +353,73 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `detail_pembelian`
 --
 ALTER TABLE `detail_pembelian`
-  MODIFY `id_detail` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_detail` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  MODIFY `id_detail` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id_detail` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `id_obat` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_obat` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `id_pembelian` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pembelian` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id_supplier` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_supplier` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id_transaksi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `detail_pembelian`
+--
+ALTER TABLE `detail_pembelian`
+  ADD CONSTRAINT `fk_detail_pembelian` FOREIGN KEY (`id_pembelian`) REFERENCES `pembelian` (`id_pembelian`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_detail_pembelian_obat` FOREIGN KEY (`id_obat`) REFERENCES `obat` (`id_obat`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `detail_transaksi`
+--
+ALTER TABLE `detail_transaksi`
+  ADD CONSTRAINT `fk_detail_transaksi_obat` FOREIGN KEY (`id_obat`) REFERENCES `obat` (`id_obat`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_detail_transaksi_transaksi` FOREIGN KEY (`id_transaksi`) REFERENCES `transaksi` (`id_transaksi`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pembelian`
+--
+ALTER TABLE `pembelian`
+  ADD CONSTRAINT `fk_pembelian_supplier` FOREIGN KEY (`id_supplier`) REFERENCES `supplier` (`id_supplier`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `transaksi`
+--
+ALTER TABLE `transaksi`
+  ADD CONSTRAINT `fk_transaksi_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

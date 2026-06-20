@@ -10,7 +10,7 @@ class User extends Authenticatable
 
     // UBAH BAGIAN INI: Sesuaikan dengan nama primary key di database kamu. 
     // Jika namanya 'id', tulis 'id'.
-    protected $primaryKey = 'id'; 
+    protected $primaryKey = 'id_user'; 
 
     public $timestamps = false; 
 

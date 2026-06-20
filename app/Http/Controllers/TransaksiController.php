@@ -119,7 +119,7 @@ class TransaksiController extends Controller
         // LOGIKA PEMBAYARAN MIDTRANS
         if ($request->metode === 'QRIS' || $request->metode === 'Transfer') {
             
-            \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+            \Midtrans\Config::$serverKey = 'Mid-server-SYhxiDCoo21AsU7-bZxoapeq';
             \Midtrans\Config::$isProduction = false; 
             \Midtrans\Config::$isSanitized = true;
             \Midtrans\Config::$is3ds = true;

@@ -56,6 +56,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pembelian/simpan', [PembelianController::class, 'store']);
     Route::get('/pembelian/edit/{id}', [PembelianController::class, 'edit']);
     Route::put('/pembelian/update/{id}', [PembelianController::class, 'update']);
+    Route::delete('/pembelian/hapus/{id}', [PembelianController::class, 'destroy']);
 
     // Laporan Penjualan & Export
     Route::get('/laporan', [LaporanController::class, 'index']);
@@ -71,6 +72,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user/tambah', [UserController::class, 'create']);
         Route::post('/user/simpan', [UserController::class, 'store']);
         Route::delete('/user/hapus/{id}', [UserController::class, 'destroy']);
+
+
         
     });
 });
