@@ -117,7 +117,8 @@
         <h2 class="fw-bold mb-1 animate__animated animate__fadeInLeft">Ringkasan Performa</h2>
         <p class="text-muted mb-0">Pantau aktivitas apotek Anda secara real-time.</p>
     </div>
-    <form action="{{ url('/dashboard') }}" method="GET" class="filter-bar d-flex align-items-center gap-2 gap-md-3 shadow-sm bg-white rounded-4 p-2 border animate__animated animate__fadeInRight flex-wrap w-100 w-md-auto">
+    
+    <form action="{{ url('/dashboard') }}" method="GET" class="filter-bar d-flex align-items-center gap-2 gap-md-3 shadow-sm bg-white rounded-4 p-2 border animate__animated animate__fadeInRight flex-wrap w-100 w-md-auto ms-md-auto">
         <div class="d-flex align-items-center gap-2 px-2 flex-grow-1 flex-md-grow-0">
             <input type="date" name="tgl_mulai" class="form-control form-control-sm border-0 bg-transparent fw-bold" value="{{ $tgl_mulai }}">
             <span class="text-muted d-none d-md-inline">-</span>
@@ -127,7 +128,6 @@
     </form>
 </header>
 
-<!-- Statistics Cards with Animation -->
 <div class="row g-2 g-md-4 mb-4 mb-md-5">
     <div class="col-lg-3 col-md-6 col-sm-6 col-12" data-aos="zoom-in" data-aos-delay="100">
         <div class="card card-custom p-4 border-0 shadow-sm bg-white position-relative overflow-hidden">
@@ -171,13 +171,16 @@
     </div>
 </div>
 
-<!-- Main Charts Row -->
 <div class="row g-2 g-md-4 mb-4 mb-md-5">
     <div class="col-lg-8 col-12" data-aos="fade-right">
         <div class="card card-custom p-3 p-md-4 h-100 border-0 shadow-sm bg-white">
             <h5 class="fw-bold mb-3 mb-md-4"><i class="fa-solid fa-chart-line me-2 text-primary"></i>Tren Pendapatan Harian</h5>
             <div class="chart-height-harian chart-container">
-                <canvas id="chartHarian"></canvas>
+                {{-- TITIP DATA DISINI: Menggunakan atribut data-* --}}
+                <canvas id="chartHarian" 
+                        data-labels="{{ json_encode($tgl_labels) }}" 
+                        data-values="{{ json_encode($total_harian) }}">
+                </canvas>
             </div>
         </div>
     </div>
@@ -188,7 +191,11 @@
                 <div class="card card-custom p-3 p-md-4 border-0 shadow-sm bg-white">
                     <h6 class="fw-bold mb-3"><i class="fa-solid fa-money-bill me-2 text-success"></i>Metode Pembayaran</h6>
                     <div class="chart-height-metode chart-container">
-                        <canvas id="chartMetode"></canvas>
+                        {{-- TITIP DATA DISINI: Menggunakan atribut data-* --}}
+                        <canvas id="chartMetode" 
+                                data-labels="{{ json_encode($labels_metode) }}" 
+                                data-values="{{ json_encode($data_metode) }}">
+                        </canvas>
                     </div>
                 </div>
             </div>
@@ -223,18 +230,20 @@
     </div>
 </div>
 
-<!-- Obat Terlaris Chart -->
 <div class="row g-2 g-md-4" data-aos="fade-up">
     <div class="col-lg-12">
         <div class="card card-custom p-3 p-md-4 border-0 shadow-sm bg-white">
             <h5 class="fw-bold mb-3 mb-md-4"><i class="fa-solid fa-fire me-2 text-warning"></i>Top 5 Obat Terlaris</h5>
             <div class="chart-height-terlaris chart-container">
-                <canvas id="chartObatTerlaris"></canvas>
+                {{-- TITIP DATA DISINI: Menggunakan atribut data-* --}}
+                <canvas id="chartObatTerlaris" 
+                        data-labels="{{ json_encode($labels_obat) }}" 
+                        data-values="{{ json_encode($data_obat) }}">
+                </canvas>
             </div>
         </div>
     </div>
 </div>
-
 @endsection
 
 @push('scripts')
@@ -242,7 +251,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.0"></script>
 
 <script>
-    // Chart Animation Options
     const animationOptions = {
         duration: 1500,
         easing: 'easeInOutQuart'
@@ -254,13 +262,17 @@
     // Line Chart - Tren Pendapatan
     const ctxHarian = document.getElementById('chartHarian');
     if (ctxHarian) {
+        // AMBIL DATA DARI CANVAS HTML
+        const harianLabels = JSON.parse(ctxHarian.getAttribute('data-labels') || '[]');
+        const harianValues = JSON.parse(ctxHarian.getAttribute('data-values') || '[]');
+
         new Chart(ctxHarian, {
             type: 'line',
             data: {
-                labels: {!! json_encode($tgl_labels, JSON_UNESCAPED_UNICODE) !!},
+                labels: harianLabels,
                 datasets: [{
                     label: 'Pendapatan Harian',
-                    data: {!! json_encode($total_harian, JSON_UNESCAPED_UNICODE) !!},
+                    data: harianValues,
                     borderColor: 'rgb(16, 185, 129)',
                     backgroundColor: 'rgba(16, 185, 129, 0.1)',
                     fill: true,
@@ -325,12 +337,16 @@
     // Doughnut Chart - Metode Pembayaran
     const ctxMetode = document.getElementById('chartMetode');
     if (ctxMetode) {
+        // AMBIL DATA DARI CANVAS HTML
+        const metodeLabels = JSON.parse(ctxMetode.getAttribute('data-labels') || '[]');
+        const metodeValues = JSON.parse(ctxMetode.getAttribute('data-values') || '[]');
+
         new Chart(ctxMetode, {
             type: 'doughnut',
             data: {
-                labels: {!! json_encode($labels_metode, JSON_UNESCAPED_UNICODE) !!},
+                labels: metodeLabels,
                 datasets: [{
-                    data: {!! json_encode($data_metode, JSON_UNESCAPED_UNICODE) !!},
+                    data: metodeValues,
                     backgroundColor: [
                         'rgba(16, 185, 129, 0.8)',
                         'rgba(59, 130, 246, 0.8)',
@@ -367,7 +383,7 @@
                         callbacks: {
                             label: function(context) {
                                 const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                const rawValue = context.raw; // Diperbaiki dari context.parsed
+                                const rawValue = context.raw;
                                 const percentage = ((rawValue / total) * 100).toFixed(1);
                                 return context.label + ': ' + rawValue + ' (' + percentage + '%)';
                             }
@@ -381,13 +397,17 @@
     // Bar Chart - Obat Terlaris
     const ctxObatTerlaris = document.getElementById('chartObatTerlaris');
     if (ctxObatTerlaris) {
+        // AMBIL DATA DARI CANVAS HTML
+        const obatLabels = JSON.parse(ctxObatTerlaris.getAttribute('data-labels') || '[]');
+        const obatValues = JSON.parse(ctxObatTerlaris.getAttribute('data-values') || '[]');
+
         new Chart(ctxObatTerlaris, {
             type: 'bar',
             data: {
-                labels: {!! json_encode($labels_obat, JSON_UNESCAPED_UNICODE) !!},
+                labels: obatLabels,
                 datasets: [{
                     label: 'Jumlah Terjual',
-                    data: {!! json_encode($data_obat, JSON_UNESCAPED_UNICODE) !!},
+                    data: obatValues,
                     backgroundColor: [
                         'rgba(239, 68, 68, 0.8)',
                         'rgba(249, 115, 22, 0.8)',
@@ -414,9 +434,7 @@
                 maintainAspectRatio: false,
                 animation: animationOptions,
                 plugins: {
-                    legend: {
-                        display: false
-                    },
+                    legend: { display: false },
                     tooltip: {
                         backgroundColor: 'rgba(0, 0, 0, 0.8)',
                         padding: 12,
@@ -433,14 +451,10 @@
                         beginAtZero: true,
                         grid: { color: 'rgba(0, 0, 0, 0.05)' },
                         ticks: {
-                            callback: function(value) {
-                                return value + ' unit';
-                            }
+                            callback: function(value) { return value + ' unit'; }
                         }
                     },
-                    y: {
-                        grid: { display: false }
-                    }
+                    y: { grid: { display: false } }
                 }
             }
         });

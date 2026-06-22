@@ -24,16 +24,16 @@ class UserController extends Controller
     {
         // Validasi input agar username tidak boleh sama (duplikat)
         $request->validate([
-            'username' => 'required|unique:user,username',
+            'username' => 'required|unique:user,username', // Sesuaikan jika nama tabel Anda 'users'
             'password' => 'required|min:4',
             'role'     => 'required|in:admin,kasir'
         ]);
 
-        // Simpan ke database (Password otomatis dienkripsi dengan Hash bawaan Laravel)
+        // Simpan ke database
         User::create([
-            'name'     => $request->username, // Default nama sama dengan username dulu
+            'name'     => $request->username, 
             'username' => $request->username,
-            'password' => Hash::make($request->password), // Enkripsi password
+            'password' => Hash::make($request->password), 
             'role'     => $request->role,
         ]);
 
@@ -42,7 +42,17 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        User::destroy($id);
+        // Cari user berdasarkan ID / Primary Key
+        $user = User::find($id);
+
+        // Jika user tidak ditemukan, kembalikan pesan error alih-alih 404 halaman kosong
+        if (!$user) {
+            return redirect('/user')->with('error', 'Data pengguna tidak ditemukan atau sudah dihapus!');
+        }
+
+        // Proses hapus data
+        $user->delete();
+
         return redirect('/user')->with('success', 'Pengguna berhasil dihapus!');
     }
 }

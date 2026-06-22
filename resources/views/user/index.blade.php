@@ -15,7 +15,15 @@
     </div>
 @endif
 
-{{-- ALERT ERROR VALIDASI (TAMBAHAN BARU) --}}
+{{-- ALERT GAGAL / NOT FOUND (TAMBAHAN BARU) --}}
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show rounded-4" role="alert">
+        <strong>Gagal!</strong> {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+{{-- ALERT ERROR VALIDASI --}}
 @if($errors->any())
     <div class="alert alert-danger alert-dismissible fade show rounded-4" role="alert">
         <strong>Gagal Menyimpan!</strong>
@@ -97,10 +105,9 @@
                                 <span class="text-success small fw-bold"><i class="fa-solid fa-circle fa-2xs me-1"></i> Aktif</span>
                             </td>
                             <td class="text-center px-4 py-3">
-                                {{-- Gunakan Auth::user()->username untuk mengecek akun yang sedang login --}}
                                 @if(Auth::check() && $d->username != Auth::user()->username)
-                                    {{-- PASTIKAN $d->id SESUAI DENGAN NAMA PRIMARY KEY DI DATABASE --}}
-                                    <form action="{{ url('/user/hapus/'.$d->id) }}" method="POST" class="d-inline">
+                                    {{-- Menggunakan $d->getKey() agar otomatis mendeteksi nama primary key apapun di database --}}
+                                    <form action="{{ url('/user/hapus/'.$d->getKey()) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-light text-danger rounded-pill px-3" onclick="return confirm('Yakin ingin menghapus user {{ $d->username }}?')">
