@@ -118,14 +118,14 @@
         <p class="text-muted mb-0">Pantau aktivitas apotek Anda secara real-time.</p>
     </div>
     
-    <form action="{{ url('/dashboard') }}" method="GET" class="filter-bar d-flex align-items-center gap-2 gap-md-3 shadow-sm bg-white rounded-4 p-2 border animate__animated animate__fadeInRight flex-wrap w-100 w-md-auto ms-md-auto">
-        <div class="d-flex align-items-center gap-2 px-2 flex-grow-1 flex-md-grow-0">
-            <input type="date" name="tgl_mulai" class="form-control form-control-sm border-0 bg-transparent fw-bold" value="{{ $tgl_mulai }}">
-            <span class="text-muted d-none d-md-inline">-</span>
-            <input type="date" name="tgl_selesai" class="form-control form-control-sm border-0 bg-transparent fw-bold" value="{{ $tgl_selesai }}">
-        </div>
-        <button type="submit" class="btn btn-primary btn-sm px-3 px-md-4 rounded-pill btn-animate shadow-sm flex-grow-1 flex-md-grow-0">Terapkan</button>
-    </form>
+<form action="{{ url('/dashboard') }}" method="GET" class="filter-bar d-flex align-items-center gap-2 gap-md-3 shadow-sm bg-white rounded-4 p-2 border animate__animated animate__fadeInRight flex-wrap w-100 w-md-auto ms-md-auto">
+    <div class="d-flex align-items-center gap-2 px-2 flex-grow-1 flex-md-grow-0">
+        <input type="date" name="tgl_mulai" class="form-control form-control-sm border-0 bg-transparent fw-bold" value="{{ $tgl_mulai }}">
+        <span class="text-muted d-none d-md-inline">-</span>
+        <input type="date" name="tgl_selesai" class="form-control form-control-sm border-0 bg-transparent fw-bold" value="{{ $tgl_selesai }}">
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm px-3 px-md-4 rounded-pill btn-animate shadow-sm flex-grow-1 flex-md-grow-0">Terapkan</button>
+</form>
 </header>
 
 <div class="row g-2 g-md-4 mb-4 mb-md-5">

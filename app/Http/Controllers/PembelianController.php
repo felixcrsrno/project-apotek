@@ -8,6 +8,7 @@ use App\Models\DetailPembelian;
 use App\Models\Obat;
 use App\Models\Supplier; 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PembelianController extends Controller
 {
@@ -190,6 +191,12 @@ class PembelianController extends Controller
      */
     public function destroy($id)
     {
+        // RULES: Hanya admin yang dapat menghapus faktur pembelian
+        // Kasir tidak diperbolehkan delete
+        if (Auth::user()->role !== 'admin') {
+            return redirect('/pembelian')->with('error', 'Akses Ditolak! Hanya Administrator yang dapat menghapus faktur pembelian.');
+        }
+
         DB::transaction(function () use ($id) {
             $faktur = Pembelian::findOrFail($id);
 

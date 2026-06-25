@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `detail_pembelian` (
-  `id_detail` int NOT NULL,
-  `id_pembelian` int DEFAULT NULL,
-  `id_obat` int DEFAULT NULL,
-  `qty` int DEFAULT NULL,
-  `harga_beli` int DEFAULT NULL,
-  `subtotal` int DEFAULT NULL
+  `id_detail` int(11) NOT NULL,
+  `id_pembelian` int(11) DEFAULT NULL,
+  `id_obat` int(11) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `harga_beli` int(11) DEFAULT NULL,
+  `subtotal` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -48,7 +48,7 @@ INSERT INTO `detail_pembelian` (`id_detail`, `id_pembelian`, `id_obat`, `qty`, `
 (34, 3, 4, 15, 7500, 112500),
 (35, 3, 4, 50, 7900, 395000),
 (43, 8, 15, 100, 10000, 1000000),
-(44, 9, 17, 10, 7500, 75000);
+(44, 9, 17, 10, 7500, 7500);
 
 -- --------------------------------------------------------
 
@@ -57,11 +57,11 @@ INSERT INTO `detail_pembelian` (`id_detail`, `id_pembelian`, `id_obat`, `qty`, `
 --
 
 CREATE TABLE `detail_transaksi` (
-  `id_detail` int NOT NULL,
-  `id_transaksi` int DEFAULT NULL,
-  `id_obat` int DEFAULT NULL,
-  `jumlah` int DEFAULT NULL,
-  `subtotal` int DEFAULT NULL
+  `id_detail` int(11) NOT NULL,
+  `id_transaksi` int(11) DEFAULT NULL,
+  `id_obat` int(11) DEFAULT NULL,
+  `jumlah` int(11) DEFAULT NULL,
+  `subtotal` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -123,10 +123,10 @@ INSERT INTO `detail_transaksi` (`id_detail`, `id_transaksi`, `id_obat`, `jumlah`
 --
 
 CREATE TABLE `obat` (
-  `id_obat` int NOT NULL,
+  `id_obat` int(11) NOT NULL,
   `nama_obat` varchar(100) DEFAULT NULL,
-  `harga` int DEFAULT NULL,
-  `stok` int DEFAULT NULL,
+  `harga` int(11) DEFAULT NULL,
+  `stok` int(11) DEFAULT NULL,
   `kategori` varchar(50) DEFAULT NULL,
   `expired` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -159,11 +159,11 @@ INSERT INTO `obat` (`id_obat`, `nama_obat`, `harga`, `stok`, `kategori`, `expire
 --
 
 CREATE TABLE `pembelian` (
-  `id_pembelian` int NOT NULL,
+  `id_pembelian` int(11) NOT NULL,
   `no_faktur` varchar(50) DEFAULT NULL,
-  `id_supplier` int DEFAULT NULL,
+  `id_supplier` int(11) DEFAULT NULL,
   `tanggal` date DEFAULT NULL,
-  `total_bayar` int DEFAULT NULL,
+  `total_bayar` int(11) DEFAULT NULL,
   `metode_pembayaran` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -185,7 +185,7 @@ INSERT INTO `pembelian` (`id_pembelian`, `no_faktur`, `id_supplier`, `tanggal`, 
 --
 
 CREATE TABLE `supplier` (
-  `id_supplier` int NOT NULL,
+  `id_supplier` int(11) NOT NULL,
   `nama_supplier` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -209,67 +209,65 @@ INSERT INTO `supplier` (`id_supplier`, `nama_supplier`) VALUES
 --
 
 CREATE TABLE `transaksi` (
-  `id_transaksi` int NOT NULL,
+  `id_transaksi` int(11) NOT NULL,
   `tanggal` datetime DEFAULT NULL,
-  `id_user` int DEFAULT NULL,
+  `id_user` int(11) DEFAULT NULL,
   `metode` varchar(20) DEFAULT NULL,
-  `ppn` int DEFAULT '0',
-  `diskon` int DEFAULT '0',
-  `total_akhir` int DEFAULT '0',
-  `bayar` int DEFAULT NULL,
-  `kembalian` int DEFAULT NULL
+  `total_akhir` int(11) DEFAULT '0',
+  `bayar` int(11) DEFAULT NULL,
+  `kembalian` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `transaksi`
 --
 
-INSERT INTO `transaksi` (`id_transaksi`, `tanggal`, `id_user`, `metode`, `ppn`, `diskon`, `total_akhir`, `bayar`, `kembalian`) VALUES
-(23, '2026-04-14 15:40:11', NULL, 'Tunai', 2343, 0, 23643, 0, 1357),
-(24, '2026-04-14 15:41:38', NULL, 'QRIS', 0, 0, 7100, 0, 0),
-(25, '2026-04-15 07:52:09', NULL, 'QRIS', 2000, 0, 22000, 0, 0),
-(26, '2026-04-15 07:52:41', NULL, 'QRIS', 2600, 0, 28600, 0, 0),
-(27, '2026-04-15 07:56:29', NULL, 'Tunai', 1760, 0, 19360, 0, 640),
-(28, '2026-04-15 08:17:46', NULL, 'QRIS', 0, 0, 7100, 0, 0),
-(29, '2026-04-15 08:58:25', NULL, 'Tunai', 3000, 0, 33000, 0, 2000),
-(30, '2026-04-21 03:24:29', NULL, 'QRIS', 0, 0, 14200, 0, 0),
-(31, '2026-04-28 12:45:27', NULL, 'Tunai', 0, 0, 52500, 52500, 0),
-(32, '2026-04-28 12:45:54', NULL, 'QRIS', 0, 0, 21000, 21000, 0),
-(33, '2026-04-28 12:46:38', NULL, 'QRIS', 0, 0, 36000, 36000, 0),
-(34, '2026-04-28 12:50:12', NULL, 'QRIS', 0, 0, 7100, 7100, 0),
-(35, '2026-04-28 14:51:23', NULL, 'Tunai', 0, 0, 21300, 22000, 700),
-(36, '2026-04-28 14:51:45', NULL, 'Tunai', 0, 0, 7100, 8000, 900),
-(37, '2026-04-28 15:05:49', NULL, 'Tunai', 0, 0, 15000, 15000, 0),
-(38, '2026-04-28 15:19:46', NULL, 'Tunai', 0, 0, 30000, 35000, 5000),
-(39, '2026-05-09 05:46:44', NULL, 'Tunai', 0, 0, 47400, 50000, 2600),
-(40, '2026-05-21 09:48:05', NULL, 'QRIS', 0, 0, 15800, 15800, 0),
-(41, '2026-05-21 09:50:10', NULL, 'QRIS', 0, 0, 23500, 23500, 0),
-(42, '2026-05-21 09:51:56', NULL, 'QRIS', 0, 0, 23900, 23900, 0),
-(43, '2026-05-21 09:52:22', NULL, 'QRIS', 0, 0, 15000, 15000, 0),
-(44, '2026-05-21 09:52:51', NULL, 'QRIS', 0, 0, 15000, 15000, 0),
-(45, '2026-05-21 10:18:40', NULL, 'QRIS', 0, 0, 15000, 15000, 0),
-(46, '2026-05-22 03:30:51', NULL, 'QRIS', 0, 0, 60000, 60000, 0),
-(47, '2026-05-22 03:34:08', NULL, 'QRIS', 0, 0, 15800, 15800, 0),
-(48, '2026-05-22 03:34:58', NULL, 'QRIS', 0, 0, 15800, 15800, 0),
-(49, '2026-05-22 03:35:38', NULL, 'QRIS', 0, 0, 7900, 7900, 0),
-(50, '2026-05-22 03:36:04', NULL, 'Transfer', 0, 0, 7900, 7900, 0),
-(51, '2026-05-22 03:37:04', NULL, 'QRIS', 0, 0, 7900, 7900, 0),
-(52, '2026-05-22 04:03:01', NULL, 'QRIS', 0, 0, 7900, 7900, 0),
-(53, '2026-05-22 04:04:12', NULL, 'QRIS', 0, 0, 1000, 1000, 0),
-(54, '2026-05-22 04:06:04', NULL, 'QRIS', 0, 0, 10, 10, 0),
-(55, '2026-05-22 04:41:01', NULL, 'Transfer', 0, 0, 15800, 15800, 0),
-(56, '2026-05-22 06:50:27', NULL, 'QRIS', 0, 0, 15000, 15000, 0),
-(57, '2026-05-22 08:44:34', NULL, 'Tunai', 0, 0, 16000, 16000, 0),
-(58, '2026-05-22 08:55:10', NULL, 'QRIS', 0, 0, 25900, 25900, 0),
-(59, '2026-06-02 10:18:53', NULL, 'Transfer', 0, 0, 15800, 15800, 0),
-(60, '2026-06-02 10:25:00', NULL, 'QRIS', 0, 0, 15800, 15800, 0),
-(61, '2026-06-02 10:26:07', NULL, 'Transfer', 0, 0, 15800, 15800, 0),
-(62, '2026-06-02 10:43:45', NULL, 'QRIS', 0, 0, 22500, 22500, 0),
-(63, '2026-06-02 10:58:07', NULL, 'Transfer', 0, 0, 7900, 7900, 0),
-(64, '2026-06-02 10:59:24', NULL, 'Transfer', 0, 0, 7900, 7900, 0),
-(65, '2026-06-02 11:01:06', NULL, 'Transfer', 0, 0, 7900, 7900, 0),
-(66, '2026-06-02 13:54:01', NULL, 'Tunai', 0, 0, 15800, 20000, 4200),
-(67, '2026-06-02 13:55:35', NULL, 'Tunai', 0, 0, 15800, 20000, 4200);
+INSERT INTO `transaksi` (`id_transaksi`, `tanggal`, `id_user`, `metode`, `total_akhir`, `bayar`, `kembalian`) VALUES
+(23, '2026-04-14 15:40:11', NULL, 'Tunai', 23643, 0, 1357),
+(24, '2026-04-14 15:41:38', NULL, 'QRIS', 7100, 0, 0),
+(25, '2026-04-15 07:52:09', NULL, 'QRIS', 22000, 0, 0),
+(26, '2026-04-15 07:52:41', NULL, 'QRIS', 28600, 0, 0),
+(27, '2026-04-15 07:56:29', NULL, 'Tunai', 19360, 0, 640),
+(28, '2026-04-15 08:17:46', NULL, 'QRIS', 7100, 0, 0),
+(29, '2026-04-15 08:58:25', NULL, 'Tunai', 33000, 0, 2000),
+(30, '2026-04-21 03:24:29', NULL, 'QRIS', 14200, 0, 0),
+(31, '2026-04-28 12:45:27', NULL, 'Tunai', 52500, 52500, 0),
+(32, '2026-04-28 12:45:54', NULL, 'QRIS', 21000, 21000, 0),
+(33, '2026-04-28 12:46:38', NULL, 'QRIS', 36000, 36000, 0),
+(34, '2026-04-28 12:50:12', NULL, 'QRIS', 7100, 7100, 0),
+(35, '2026-04-28 14:51:23', NULL, 'Tunai', 21300, 22000, 700),
+(36, '2026-04-28 14:51:45', NULL, 'Tunai', 7100, 8000, 900),
+(37, '2026-04-28 15:05:49', NULL, 'Tunai', 15000, 15000, 0),
+(38, '2026-04-28 15:19:46', NULL, 'Tunai', 30000, 35000, 5000),
+(39, '2026-05-09 05:46:44', NULL, 'Tunai', 47400, 50000, 2600),
+(40, '2026-05-21 09:48:05', NULL, 'QRIS', 15800, 15800, 0),
+(41, '2026-05-21 09:50:10', NULL, 'QRIS', 23500, 23500, 0),
+(42, '2026-05-21 09:51:56', NULL, 'QRIS', 23900, 23900, 0),
+(43, '2026-05-21 09:52:22', NULL, 'QRIS', 15000, 15000, 0),
+(44, '2026-05-21 09:52:51', NULL, 'QRIS', 15000, 15000, 0),
+(45, '2026-05-21 10:18:40', NULL, 'QRIS', 15000, 15000, 0),
+(46, '2026-05-22 03:30:51', NULL, 'QRIS', 60000, 60000, 0),
+(47, '2026-05-22 03:34:08', NULL, 'QRIS', 15800, 15800, 0),
+(48, '2026-05-22 03:34:58', NULL, 'QRIS', 15800, 15800, 0),
+(49, '2026-05-22 03:35:38', NULL, 'QRIS', 7900, 7900, 0),
+(50, '2026-05-22 03:36:04', NULL, 'Transfer', 7900, 7900, 0),
+(51, '2026-05-22 03:37:04', NULL, 'QRIS', 7900, 7900, 0),
+(52, '2026-05-22 04:03:01', NULL, 'QRIS', 7900, 7900, 0),
+(53, '2026-05-22 04:04:12', NULL, 'QRIS', 1000, 1000, 0),
+(54, '2026-05-22 04:06:04', NULL, 'QRIS', 10, 10, 0),
+(55, '2026-05-22 04:41:01', NULL, 'Transfer', 15800, 15800, 0),
+(56, '2026-05-22 06:50:27', NULL, 'QRIS', 15000, 15000, 0),
+(57, '2026-05-22 08:44:34', NULL, 'Tunai', 16000, 16000, 0),
+(58, '2026-05-22 08:55:10', NULL, 'QRIS', 25900, 25900, 0),
+(59, '2026-06-02 10:18:53', NULL, 'Transfer', 15800, 15800, 0),
+(60, '2026-06-02 10:25:00', NULL, 'QRIS', 15800, 15800, 0),
+(61, '2026-06-02 10:26:07', NULL, 'Transfer', 15800, 15800, 0),
+(62, '2026-06-02 10:43:45', NULL, 'QRIS', 22500, 22500, 0),
+(63, '2026-06-02 10:58:07', NULL, 'Transfer', 7900, 7900, 0),
+(64, '2026-06-02 10:59:24', NULL, 'Transfer', 7900, 7900, 0),
+(65, '2026-06-02 11:01:06', NULL, 'Transfer', 7900, 7900, 0),
+(66, '2026-06-02 13:54:01', NULL, 'Tunai', 15800, 20000, 4200),
+(67, '2026-06-02 13:55:35', NULL, 'Tunai', 15800, 20000, 4200);
 
 -- --------------------------------------------------------
 
@@ -278,7 +276,7 @@ INSERT INTO `transaksi` (`id_transaksi`, `tanggal`, `id_user`, `metode`, `ppn`, 
 --
 
 CREATE TABLE `user` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `role` varchar(20) DEFAULT NULL
@@ -353,43 +351,43 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `detail_pembelian`
 --
 ALTER TABLE `detail_pembelian`
-  MODIFY `id_detail` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  MODIFY `id_detail` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `id_obat` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_obat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `pembelian`
 --
 ALTER TABLE `pembelian`
-  MODIFY `id_pembelian` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_pembelian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id_supplier` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

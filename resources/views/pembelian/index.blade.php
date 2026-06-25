@@ -62,6 +62,7 @@
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
 
+                            @if(Auth::user()->role === 'admin')
                             <form action="{{ url('/pembelian/hapus/'.$d->id_pembelian) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus faktur ini? Ketahuilah stok obat yang bertambah dari faktur ini mungkin akan ikut disesuaikan.')" class="m-0">
                                 @csrf
                                 @method('DELETE') {{-- Ganti ke @method('GET') atau hapus jika route kamu di web.php menggunakan Route::get --}}
@@ -69,6 +70,11 @@
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
+                            @else
+                            <button type="button" class="btn btn-sm btn-white border shadow-sm text-secondary rounded-circle p-2" title="Hanya Admin yang dapat menghapus" disabled style="width: 35px; height: 35px; display: inline-flex; align-items: center; justify-content: center; opacity: 0.5;">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                            @endif
                         </div>
                     </td>
                 </tr>
